@@ -64,6 +64,11 @@ class MailTrackingController(http.Controller):
         return env['mail.tracking.email'].event_process(
             http.request, kw, metadata, event_type=event_type)
 
+    @http.route('/mail/tracking/json/<string:db>',
+                type='json', auth='none', csrf=False)
+    def mail_tracking_json(self, db, **kw):
+        return _env_get(db, self._tracking_event, None, None, **kw)
+
     @http.route('/mail/tracking/all/<string:db>',
                 type='http', auth='none', csrf=False)
     def mail_tracking_all(self, db, **kw):
