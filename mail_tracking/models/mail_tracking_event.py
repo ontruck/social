@@ -151,3 +151,8 @@ class MailTrackingEvent(models.Model):
     def process_reject(self, tracking_email, metadata):
         return self._process_status(
             tracking_email, metadata, 'reject', 'rejected')
+
+    @api.model
+    def process_sent(self, tracking_email, metadata):
+        return self._process_status(
+            tracking_email, metadata, 'sent', 'sent')
