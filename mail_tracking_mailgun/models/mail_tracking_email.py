@@ -181,6 +181,9 @@ class MailTrackingEmail(models.Model):
     def event_process(self, request, post, metadata, event_type=None):
         res = super(MailTrackingEmail, self).event_process(
             request, post, metadata, event_type=event_type)
+        if res != 'NONE':
+            # This event has been already processed by other addon
+            return res
         if res == 'NONE' and self._event_is_from_mailgun(post):
             if not self._mailgun_signature_verify(post):
                 res = 'ERROR: Signature'
